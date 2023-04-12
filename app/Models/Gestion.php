@@ -10,6 +10,9 @@ class Gestion extends Model
     use HasFactory;
 
     protected $table = 'gestiones';
+    protected $fillable = [
+        'anio'
+    ];
 
     public function planilla()
     {

@@ -10,8 +10,10 @@
     </header>
 
     <x-splade-form method="patch" :action="route('profile.update')" :default="$user" class="mt-6 space-y-6" preserve-scroll>
-        <x-splade-input id="name" name="name" type="text" :label="__('Name')" required autofocus autocomplete="name" />
-        <x-splade-input id="email" name="email" type="email" :label="__('Email')" required autocomplete="email" />
+        <div class="grid grid-cols-2 gap-4">
+            <x-splade-input class="col-span-2 md:col-span-1" id="name" name="name" type="text" :label="__('Name')" required autofocus autocomplete="name" />
+            <x-splade-input class="col-span-2 md:col-span-1" id="email" name="email" type="email" :label="__('Email')" required autocomplete="email" />
+        </div>
 
         @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
             <div>

@@ -39,5 +39,11 @@
     "Update Password": "Cambio de contraseña",
     "Ensure your account is using a long, random password to stay secure.": "Verifica que tu contraseña sea lo bastante segura.",
     "Current Password": "Contraseña actual",
-    "New Password": "Contraseña nueva"
+    "New Password": "Contraseña nueva",
+    "Dashboard": "Inicio",
+    "Credentials": "Credenciales",
+    "New Credential": "Nueva credencial",
+    "Business": "Empresa",
+    "Start year": "Gestión inicial",
+    "Final year": "Gestión final"
 }

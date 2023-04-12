@@ -10,15 +10,19 @@ class Planilla extends Model
     use HasFactory;
 
     protected $table = 'planillas';
+    protected $fillable = [
+        'gestion_id',
+        'credencial_id',
+    ];
 
     public function gestion()
     {
         return $this->belongsTo(Gestion::class, 'gestion_id');
     }
 
-    public function empresa()
+    public function credencial()
     {
-        return $this->belongsTo(Empresa::class, 'empresa_id');
+        return $this->belongsTo(Credencial::class, 'credencial_id');
     }
 
     public function meses()

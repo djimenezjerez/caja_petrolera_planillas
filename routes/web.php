@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CredencialController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,7 +35,12 @@ Route::middleware('splade')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', function () {
             return view('dashboard');
-        })->middleware(['verified'])->name('dashboard');
+        })->name('dashboard');
+
+        Route::get('/credenciales', [CredencialController::class, 'index'])->name('credenciales.index');
+        Route::get('/credenciales/create', [CredencialController::class, 'create'])->name('credenciales.create');
+        Route::get('/credenciales/{credencial}', [CredencialController::class, 'show'])->name('credenciales.show');
+        Route::post('/credenciales', [CredencialController::class, 'store'])->name('credenciales.store');
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

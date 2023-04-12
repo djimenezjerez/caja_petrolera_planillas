@@ -11,6 +11,10 @@ class Empresa extends Model
 
     protected $table = 'empresas';
 
+    protected $fillable = [
+        'nombre',
+    ];
+
     public function cargos()
     {
         return $this->hasMany(Cargo::class, 'empresa_id');
@@ -21,8 +25,8 @@ class Empresa extends Model
         return $this->hasMany(MovimientoEmpleado::class, 'empresa_id');
     }
 
-    public function planilla()
+    public function credencial()
     {
-        return $this->hasMany(Empresa::class, 'empresa_id');
+        return $this->hasMany(Credencial::class, 'empresa_id');
     }
 }
