@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             MesSeeder::class,
+            CiudadSeeder::class,
         ]);
     }
 }

@@ -25,4 +25,9 @@ class Empleado extends Model
     {
         return $this->hasMany(TotalPlanilla::class, 'empleado_id');
     }
+
+    public function ciudad()
+    {
+        $this->belongsTo(Ciudad::class, 'ciudad_id');
+    }
 }
