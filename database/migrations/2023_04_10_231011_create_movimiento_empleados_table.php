@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('cargo_id');
             $table->foreign('cargo_id')->references('id')->on('cargos')->onUpdate('cascade')->onDelete('cascade');
             $table->date('fecha_ingreso');
-            $table->date('fecha_retiro');
+            $table->date('fecha_retiro')->nullable();
             $table->timestamps();
         });
     }
