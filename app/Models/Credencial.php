@@ -14,6 +14,8 @@ class Credencial extends Model
     protected $fillable = [
         'empresa_id',
         'user_id',
+        'cite',
+        'fecha_inicio_fizcalizacion',
     ];
 
     public function empresa()

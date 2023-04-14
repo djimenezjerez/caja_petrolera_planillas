@@ -28,6 +28,11 @@ class Empleado extends Model
 
     public function ciudad()
     {
-        $this->belongsTo(Ciudad::class, 'ciudad_id');
+        return $this->belongsTo(Ciudad::class, 'ciudad_id');
+    }
+
+    public function representaciones_legales()
+    {
+        return $this->hasMany(Empresa::class, 'empleado_id');
     }
 }
