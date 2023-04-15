@@ -26,8 +26,8 @@ class Cargo extends Model
         return $this->hasMany(PlanillaSueldo::class, 'cargo_id');
     }
 
-    public function totales()
+    public function planillas()
     {
-        return $this->hasMany(TotalPlanilla::class, 'cargo_id');
+        return $this->hasMany(PlanillaEmpleado::class, 'cargo_id');
     }
 }

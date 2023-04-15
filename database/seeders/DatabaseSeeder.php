@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\RegimenTributario;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             MesSeeder::class,
             CiudadSeeder::class,
+            RegimenTributarioSeeder::class,
         ]);
     }
 }

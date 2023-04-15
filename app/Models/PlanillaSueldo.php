@@ -11,7 +11,7 @@ class PlanillaSueldo extends Model
 
     protected $table = 'planilla_sueldos';
 
-    public function planilla_mes()
+    public function mes()
     {
         return $this->belongsTo(PlanillaMes::class, 'planilla_mes_id');
     }

@@ -15,32 +15,41 @@ class CiudadSeeder extends Seeder
     {
         $datos = [
             [
-                'nombre' => 'La Paz',
+                'nombre' => 'LA PAZ',
                 'codigo' => 'LP',
+                'orden' => 1,
             ], [
-                'nombre' => 'Santa Cruz',
+                'nombre' => 'SANTA CRUZ',
                 'codigo' => 'SC',
+                'orden' => 2,
             ], [
-                'nombre' => 'Cochabamba',
+                'nombre' => 'COCHABAMBA',
                 'codigo' => 'CB',
+                'orden' => 3,
             ], [
-                'nombre' => 'Sucre',
+                'nombre' => 'SUCRE',
                 'codigo' => 'SC',
+                'orden' => 4,
             ], [
-                'nombre' => 'Oruro',
+                'nombre' => 'ORURO',
                 'codigo' => 'OR',
+                'orden' => 5,
             ], [
-                'nombre' => 'Potosí',
+                'nombre' => 'POTOSÍ',
                 'codigo' => 'PT',
+                'orden' => 6,
             ], [
-                'nombre' => 'Tarija',
+                'nombre' => 'TARIJA',
                 'codigo' => 'TJ',
+                'orden' => 7,
             ], [
-                'nombre' => 'Beni',
+                'nombre' => 'BENI',
                 'codigo' => 'BN',
+                'orden' => 8,
             ], [
-                'nombre' => 'Pando',
+                'nombre' => 'PANDO',
                 'codigo' => 'PD',
+                'orden' => 9,
             ],
         ];
 

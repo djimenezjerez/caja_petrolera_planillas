@@ -16,14 +16,14 @@ class Empleado extends Model
         return $this->hasMany(MovimientoEmpleado::class, 'empleado_id');
     }
 
-    public function planilla_sueldo()
+    public function sueldos()
     {
         return $this->hasMany(PlanillaSueldo::class, 'empleado_id');
     }
 
-    public function totales()
+    public function planillas()
     {
-        return $this->hasMany(TotalPlanilla::class, 'empleado_id');
+        return $this->hasMany(PlanillaEmpleado::class, 'empleado_id');
     }
 
     public function ciudad()

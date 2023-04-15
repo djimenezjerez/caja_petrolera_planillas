@@ -30,8 +30,8 @@ class Planilla extends Model
         return $this->hasMany(PlanillaMes::class, 'planilla_id');
     }
 
-    public function totales()
+    public function empleados()
     {
-        return $this->hasMany(TotalPlanilla::class, 'planilla_id');
+        return $this->hasMany(PlanillaEmpleado::class, 'planilla_id');
     }
 }

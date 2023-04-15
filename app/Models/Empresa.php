@@ -14,7 +14,7 @@ class Empresa extends Model
     protected $fillable = [
         'nombre',
         'nit',
-        'regimen',
+        'regimen_tributario_id',
         'numero_empleador',
         'fecha_afiliacion',
         'actividad',
@@ -27,6 +27,11 @@ class Empresa extends Model
         'empleado_id',
         'domicilio_representante',
     ];
+
+    public function regimen_tributario()
+    {
+        return $this->belongsTo(RegimenTributario::class, 'regimen_tributario_id');
+    }
 
     public function cargos()
     {

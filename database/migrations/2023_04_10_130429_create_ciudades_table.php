@@ -15,6 +15,7 @@ return new class extends Migration
             $table->tinyIncrements('id');
             $table->string('nombre');
             $table->string('codigo', 2);
+            $table->unsignedTinyInteger('orden')->default(0);
         });
     }
 

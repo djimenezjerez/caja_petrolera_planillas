@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ciudad extends Model
+class RegimenTributario extends Model
 {
     use HasFactory;
 
-    protected $table = 'ciudades';
+    protected $table = 'regimenes_tributarios';
     public $timestamps = false;
     protected $fillable = [
         'nombre',
         'codigo',
     ];
 
-    public function empleados()
+    public function empresas()
     {
-        $this->hasMany(Empleado::class, 'ciudad_id');
+        return $this->hasMany(Empresa::class, 'regimen_tributario_id');
     }
 }

@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TotalPlanilla extends Model
+class PlanillaEmpleado extends Model
 {
     use HasFactory;
 
-    protected $table = 'total_planillas';
+    protected $table = 'planilla_empleados';
 
     public function importe()
     {

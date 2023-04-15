@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('credenciales', function (Blueprint $table) {
-            $table->string('cite');
-            $table->date('fecha_inicio_fizcalizacion');
+        Schema::create('regimenes_tributarios', function (Blueprint $table) {
+            $table->tinyIncrements('id');
+            $table->string('nombre');
+            $table->string('codigo', 20);
+            $table->unsignedTinyInteger('orden')->default(0);
         });
     }
 
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('credenciales', function (Blueprint $table) {
-            $table->dropColumn(['cite', 'fecha_inicio_fizcalizacion']);
-        });
+        Schema::dropIfExists('regimenes_tributarios');
     }
 };

@@ -94,6 +94,19 @@ class CredencialController extends Controller
      */
     public function destroy(Credencial $credencial)
     {
-        //
+        foreach ($credencial->planillas as $planilla) {
+            foreach ($planilla->meses as $mes) {
+                $mes->importe->delete();
+                $mes->total->delete();
+                $mes->delete();
+            }
+            foreach ($planilla->empleados as $empleado) {
+                $empleado->importe->delete();
+                $empleado->delete();
+            }
+            $planilla->delete();
+        }
+        $credencial->delete();
+        return redirect()->route('credenciales.index');
     }
 }

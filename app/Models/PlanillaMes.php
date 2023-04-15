@@ -26,7 +26,7 @@ class PlanillaMes extends Model
         return $this->belongsTo(Mes::class, 'mes_id');
     }
 
-    public function planilla_sueldo()
+    public function sueldos()
     {
         return $this->hasMany(PlanillaSueldo::class, 'planilla_mes_id');
     }

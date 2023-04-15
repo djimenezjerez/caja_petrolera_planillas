@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('credenciales', function (Blueprint $table) {
             $table->id();
+            $table->string('cite');
+            $table->date('fecha_inicio_fizcalizacion');
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');

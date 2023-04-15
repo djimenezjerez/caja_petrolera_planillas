@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TotalPlanilla;
-use App\Http\Requests\StoreTotalPlanillaRequest;
-use App\Http\Requests\UpdateTotalPlanillaRequest;
+use App\Models\RegimenTributario;
+use App\Http\Requests\StoreRegimenTributarioRequest;
+use App\Http\Requests\UpdateRegimenTributarioRequest;
 
-class TotalPlanillaController extends Controller
+class RegimenTributarioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class TotalPlanillaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTotalPlanillaRequest $request)
+    public function store(StoreRegimenTributarioRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class TotalPlanillaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(TotalPlanilla $totalPlanilla)
+    public function show(RegimenTributario $regimenTributario)
     {
         //
     }
@@ -43,7 +43,7 @@ class TotalPlanillaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TotalPlanilla $totalPlanilla)
+    public function edit(RegimenTributario $regimenTributario)
     {
         //
     }
@@ -51,7 +51,7 @@ class TotalPlanillaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTotalPlanillaRequest $request, TotalPlanilla $totalPlanilla)
+    public function update(UpdateRegimenTributarioRequest $request, RegimenTributario $regimenTributario)
     {
         //
     }
@@ -59,7 +59,7 @@ class TotalPlanillaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TotalPlanilla $totalPlanilla)
+    public function destroy(RegimenTributario $regimenTributario)
     {
         //
     }

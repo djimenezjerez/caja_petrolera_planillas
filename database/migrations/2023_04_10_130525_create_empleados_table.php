@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('apellido_materno');
             $table->unsignedBigInteger('cedula_identidad')->unique();
             $table->string('complemento_cedula');
+            $table->unsignedTinyInteger('ciudad_id')->nullable();
+            $table->foreign('ciudad_id')->references('id')->on('ciudades')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
