@@ -104,7 +104,7 @@ class CredencialController extends Controller
                 'regimen_tributario_id' => $request->empresa_regimen_tributario_id,
                 'numero_empleador' => $request->empresa_numero_empleador,
                 'fecha_afiliacion' => $request->empresa_fecha_afiliacion,
-                'actividad' => $request->empresa_fecha_afiliacion,
+                'actividad' => $request->empresa_actividad,
                 'tipo_empresa_id' => $request->empresa_tipo_empresa_id,
                 'fundempresa' => $request->empresa_fundempresa,
                 'roe' => $request->empresa_roe,
@@ -211,7 +211,7 @@ class CredencialController extends Controller
                 'regimen_tributario_id' => $request->empresa_regimen_tributario_id,
                 'numero_empleador' => $request->empresa_numero_empleador,
                 'fecha_afiliacion' => $request->empresa_fecha_afiliacion,
-                'actividad' => $request->empresa_fecha_afiliacion,
+                'actividad' => $request->empresa_actividad,
                 'tipo_empresa_id' => $request->empresa_tipo_empresa_id,
                 'fundempresa' => $request->empresa_fundempresa,
                 'roe' => $request->empresa_roe,
@@ -254,7 +254,7 @@ class CredencialController extends Controller
                 ]);
             }
             DB::commit();
-            Toast::title('Éxito')->message('Registro almacenado exitósamente')->autoDismiss(15);
+            Toast::title('Éxito')->message('Registro modificado exitósamente')->autoDismiss(15);
             return redirect()->route('credenciales.index');
         } catch (\Exception $e) {
             DB::rollBack();
