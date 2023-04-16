@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             MesSeeder::class,
             CiudadSeeder::class,
             RegimenTributarioSeeder::class,
+            TipoEmpresaSeeder::class,
         ]);
     }
 }

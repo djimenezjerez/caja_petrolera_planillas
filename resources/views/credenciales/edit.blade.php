@@ -7,7 +7,8 @@
 
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-splade-form method="post" :action="route('credenciales.store')" :default="$credencial" preserve-scroll>
+            <x-splade-form method="patch" :action="route('credenciales.update', $credencial['credencial_id'])" :default="$credencial" preserve-scroll>
+                <x-splade-input name="credencial_id" type="hidden" required />
                 @include('credenciales.partials.credencial-form')
             </x-splade-form>
         </div>

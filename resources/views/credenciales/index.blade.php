@@ -19,9 +19,9 @@
                             <p class="text-gray-700 px-6 py-12 font-medium text-sm text-center">Sin registros</p>
                         </x-slot>
                         <x-splade-cell action>
-                            <Link href="{{ route('credenciales.show', $item->id) }}" class="inline flex-items">
+                            <Link href="{{ route('credenciales.edit', $item->id) }}" class="inline flex-items">
                                 <button class="inline-flex items-center justify-center w-7 h-7 mr-2 text-indigo-700 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-indigo-200">
-                                    <svg stroke-width="1.5" fill="none" stroke="currentColor" viewBox="0 0 22 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path></svg>
+                                    <svg stroke-width="1.5" fill="none" stroke="currentColor" viewBox="0 0 22 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                                 </button>
                             </Link>
                             <Link href="{{ route('credenciales.destroy', $item->id) }}" method="DELETE" class="inline flex-items" confirm="Eliminar credencial" confirm-text="¿Seguro que desea eliminar la credencial?" confirm-button="Si" cancel-button="No">

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('regimenes_tributarios', function (Blueprint $table) {
+        Schema::create('tipos_empresas', function (Blueprint $table) {
             $table->tinyIncrements('id');
             $table->string('nombre');
             $table->string('codigo', 20)->unique();
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('regimenes_tributarios');
+        Schema::dropIfExists('tipos_empresas');
     }
 };

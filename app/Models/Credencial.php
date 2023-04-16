@@ -15,7 +15,13 @@ class Credencial extends Model
         'empresa_id',
         'user_id',
         'cite',
-        'fecha_inicio_fizcalizacion',
+        'inicio_fizcalizacion',
+    ];
+    protected $casts = [
+        'empresa_id' => 'integer',
+        'user_id' => 'integer',
+        'cite' => 'string',
+        'inicio_fizcalizacion' => 'date',
     ];
 
     public function empresa()

@@ -10,6 +10,22 @@ class Empleado extends Model
     use HasFactory;
 
     protected $table = 'empleados';
+    protected $fillable = [
+        'apellido_paterno',
+        'apellido_materno',
+        'nombre',
+        'cedula_identidad',
+        'complemento_cedula',
+        'ciudad_id',
+    ];
+    protected $casts = [
+        'apellido_paterno' => 'string',
+        'apellido_materno' => 'string',
+        'nombre' => 'string',
+        'cedula_identidad' => 'integer',
+        'complemento_cedula' => 'string',
+        'ciudad_id' => 'integer',
+    ];
 
     public function movimientos_empleado()
     {

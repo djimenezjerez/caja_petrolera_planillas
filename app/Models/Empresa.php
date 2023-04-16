@@ -10,7 +10,6 @@ class Empresa extends Model
     use HasFactory;
 
     protected $table = 'empresas';
-
     protected $fillable = [
         'nombre',
         'nit',
@@ -18,7 +17,7 @@ class Empresa extends Model
         'numero_empleador',
         'fecha_afiliacion',
         'actividad',
-        'tipo_empresa',
+        'tipo_empresa_id',
         'fundempresa',
         'roe',
         'telefonos',
@@ -27,10 +26,31 @@ class Empresa extends Model
         'empleado_id',
         'domicilio_representante',
     ];
+    protected $casts = [
+        'nombre' => 'string',
+        'nit' => 'integer',
+        'regimen_tributario_id' => 'integer',
+        'numero_empleador' => 'string',
+        'fecha_afiliacion' => 'date',
+        'actividad' => 'string',
+        'tipo_empresa_id' => 'integer',
+        'fundempresa' => 'string',
+        'roe' => 'string',
+        'telefonos' => 'string',
+        'ciudad_id' => 'integer',
+        'domicilio' => 'string',
+        'empleado_id' => 'integer',
+        'domicilio_representante' => 'string',
+    ];
 
     public function regimen_tributario()
     {
         return $this->belongsTo(RegimenTributario::class, 'regimen_tributario_id');
+    }
+
+    public function tipo_empresa()
+    {
+        return $this->belongsTo(TipoEmpresa::class, 'tipo_empresa_id');
     }
 
     public function cargos()
