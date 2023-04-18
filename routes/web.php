@@ -41,6 +41,7 @@ Route::middleware('splade')->group(function () {
         Route::get('/credenciales/create', [CredencialController::class, 'create'])->name('credenciales.create');
         Route::get('/credenciales/{credencial}/edit', [CredencialController::class, 'edit'])->name('credenciales.edit');
         Route::get('/credenciales/{credencial}', [CredencialController::class, 'show'])->name('credenciales.show');
+        Route::post('/credenciales/create', [CredencialController::class, 'upload'])->name('credenciales.upload');
         Route::post('/credenciales', [CredencialController::class, 'store'])->name('credenciales.store');
         Route::patch('/credenciales/{credencial}', [CredencialController::class, 'update'])->name('credenciales.update');
         Route::delete('/credenciales/{credencial}', [CredencialController::class, 'destroy'])->name('credenciales.destroy');
