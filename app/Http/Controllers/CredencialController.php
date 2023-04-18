@@ -29,18 +29,17 @@ class CredencialController extends Controller
      */
     public function index()
     {
-        // $credenciales = QueryBuilder::for(Credencial::select('credenciales.id', 'credenciales.empresa_id', 'empresas.nombre')->where('user_id', auth()->user()->id)->leftJoin('empresas', 'empresas.id', '=', 'credenciales.empresa_id'))->defaultSort(['empresas.nombre'])->allowedSorts(['empresas.nombre'])->paginate(8)->withQueryString();
         $global = AllowedFilter::callback('global', function ($query, $value) {
             $query->where(function ($query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {
-                    $query->orWhere('empresas.nombre', 'like', "%{$value}%");
+                    $query->orWhere('empresas.nombre', 'like', "%{$value}%")->orWhere('cite', 'like', "%{$value}%");
                 });
             });
         });
-        $credenciales = QueryBuilder::for(Credencial::select('credenciales.id', 'credenciales.empresa_id', 'empresas.nombre as empresas.nombre')->leftJoin('empresas', 'empresas.id', '=', 'credenciales.empresa_id')->where('credenciales.user_id', auth()->user()->id))->defaultSort('empresas.nombre')->allowedSorts('empresas.nombre')->allowedFilters(['empresas.nombre', $global]);
+        $credenciales = QueryBuilder::for(Credencial::select('credenciales.id', 'credenciales.cite', 'credenciales.empresa_id', 'empresas.nombre as empresas.nombre')->leftJoin('empresas', 'empresas.id', '=', 'credenciales.empresa_id')->where('credenciales.user_id', auth()->user()->id))->defaultSort('empresas.nombre')->allowedSorts(['cite', 'empresas.nombre'])->allowedFilters(['cite', 'empresas.nombre', $global]);
 
         return view('credenciales.index', [
-            'datos' => SpladeTable::for($credenciales)->column(key: 'empresas.nombre', label: 'EMPRESA', sortable: true, canBeHidden: false)->column(key: 'action', label: 'ACCIONES', canBeHidden: false, alignment: 'center')->withGlobalSearch(columns: ['empresas.nombre'])->paginate(8)->perPageOptions ([8, 15, 30]),
+            'datos' => SpladeTable::for($credenciales)->column(key: 'cite', label: 'CITE', sortable: true, canBeHidden: false)->column(key: 'empresas.nombre', label: 'EMPRESA', sortable: true, canBeHidden: false)->column(key: 'action', label: 'ACCIONES', canBeHidden: false, alignment: 'center')->withGlobalSearch(columns: ['credenciales.cite', 'empresas.nombre'])->paginate(8)->perPageOptions ([8, 15, 30]),
         ]);
     }
 
