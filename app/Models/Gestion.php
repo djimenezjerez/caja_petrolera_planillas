@@ -13,6 +13,9 @@ class Gestion extends Model
     protected $fillable = [
         'anio'
     ];
+    protected $casts = [
+        'anio' => 'integer'
+    ];
 
     public function planilla()
     {

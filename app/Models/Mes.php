@@ -10,6 +10,14 @@ class Mes extends Model
     use HasFactory;
 
     protected $table = 'meses';
+    protected $fillable = [
+        'nombre',
+        'orden',
+    ];
+    protected $casts = [
+        'nombre' => 'string',
+        'orden' => 'integer',
+    ];
 
     public function planillas()
     {

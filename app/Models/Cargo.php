@@ -10,6 +10,14 @@ class Cargo extends Model
     use HasFactory;
 
     protected $table = 'cargos';
+    protected $fillable = [
+        'empresa_id',
+        'nombre',
+    ];
+    protected $casts = [
+        'empresa_id' => 'integer',
+        'nombre' => 'string',
+    ];
 
     public function empresa()
     {

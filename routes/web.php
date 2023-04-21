@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\CredencialController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\VerificarCredencial;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CredencialController;
+use App\Http\Controllers\MovimientoEmpleadoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,10 @@ Route::middleware('splade')->group(function () {
         Route::get('/dashboard', function () {
             return view('dashboard');
         })->name('dashboard');
+
+        Route::middleware(VerificarCredencial::class)->group(function () {
+            Route::get('/movimiento_empleados', [MovimientoEmpleadoController::class, 'index'])->name('movimiento_empleados.index');
+        });
 
         Route::get('/credenciales', [CredencialController::class, 'index'])->name('credenciales.index');
         Route::get('/credenciales/create', [CredencialController::class, 'create'])->name('credenciales.create');

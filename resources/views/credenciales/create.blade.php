@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight py-2">
             {{ __('New Credential') }}
         </h2>
     </x-slot>
 
     <div class="py-4">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
             <x-splade-form :action="route('credenciales.upload')" preserve-scroll>
                 <div class="p-6 bg-white border-b border-gray-400">
                     <div class="grid grid-cols-1 gap-4">

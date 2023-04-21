@@ -1,8 +1,8 @@
 <x-credencial-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ $credencial->empresa->nombre }}
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight py-2">
+                Datos de la empresa
             </h2>
         </div>
     </x-slot>

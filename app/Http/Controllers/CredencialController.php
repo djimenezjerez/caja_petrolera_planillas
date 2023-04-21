@@ -17,6 +17,7 @@ use ProtoneMedia\Splade\SpladeTable;
 use Spatie\QueryBuilder\QueryBuilder;
 use ProtoneMedia\Splade\Facades\Toast;
 use Spatie\QueryBuilder\AllowedFilter;
+use Illuminate\Support\Facades\Session;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use App\Http\Requests\StoreCredencialRequest;
 use App\Http\Requests\UpdateCredencialRequest;
@@ -29,6 +30,7 @@ class CredencialController extends Controller
      */
     public function index()
     {
+        Session::forget('credencial_id');
         $global = AllowedFilter::callback('global', function ($query, $value) {
             $query->where(function ($query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {
@@ -36,10 +38,10 @@ class CredencialController extends Controller
                 });
             });
         });
-        $credenciales = QueryBuilder::for(Credencial::select('credenciales.id', 'credenciales.cite', 'credenciales.empresa_id', 'empresas.nombre as empresas.nombre')->leftJoin('empresas', 'empresas.id', '=', 'credenciales.empresa_id')->where('credenciales.user_id', auth()->user()->id))->defaultSort('empresas.nombre')->allowedSorts(['cite', 'empresas.nombre'])->allowedFilters(['cite', 'empresas.nombre', $global]);
+        $datos = QueryBuilder::for(Credencial::select('credenciales.id', 'credenciales.cite', 'credenciales.empresa_id', 'empresas.nombre as empresas.nombre')->leftJoin('empresas', 'empresas.id', '=', 'credenciales.empresa_id')->where('credenciales.user_id', auth()->user()->id))->defaultSort('empresas.nombre')->allowedSorts(['cite', 'empresas.nombre'])->allowedFilters(['cite', 'empresas.nombre', $global]);
 
         return view('credenciales.index', [
-            'datos' => SpladeTable::for($credenciales)->column(key: 'cite', label: 'CITE', sortable: true, canBeHidden: false)->column(key: 'empresas.nombre', label: 'EMPRESA', sortable: true, canBeHidden: false)->column(key: 'action', label: 'ACCIONES', canBeHidden: false, alignment: 'center')->withGlobalSearch(columns: ['credenciales.cite', 'empresas.nombre'])->paginate(8)->perPageOptions ([8, 15, 30]),
+            'datos' => SpladeTable::for($datos)->column(key: 'cite', label: 'CITE', sortable: true, canBeHidden: false)->column(key: 'empresas.nombre', label: 'EMPRESA', sortable: true, canBeHidden: false)->column(key: 'action', label: 'ACCIONES', canBeHidden: false, alignment: 'center')->withGlobalSearch(columns: ['credenciales.cite', 'empresas.nombre'])->paginate(8)->perPageOptions ([8, 15, 30]),
         ]);
     }
 
@@ -145,6 +147,7 @@ class CredencialController extends Controller
      */
     public function show(Credencial $credencial)
     {
+        Session::put('credencial_id', $credencial->id);
         return view('credenciales.show', compact('credencial'));
     }
 

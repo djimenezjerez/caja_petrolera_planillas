@@ -15,6 +15,10 @@ class RegimenTributario extends Model
         'nombre',
         'codigo',
     ];
+    protected $casts = [
+        'nombre' =>'string',
+        'codigo' =>'string',
+    ];
 
     public function empresas()
     {

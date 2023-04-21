@@ -14,6 +14,10 @@ class Planilla extends Model
         'gestion_id',
         'credencial_id',
     ];
+    protected $casts = [
+        'gestion_id' => 'integer',
+        'credencial_id' => 'integer',
+    ];
 
     public function gestion()
     {
