@@ -30,7 +30,7 @@ class CredencialController extends Controller
      */
     public function index()
     {
-        Session::forget('credencial_id');
+        Session::forget(['credencial_id', 'credencial_nombre']);
         $global = AllowedFilter::callback('global', function ($query, $value) {
             $query->where(function ($query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {
@@ -148,6 +148,7 @@ class CredencialController extends Controller
     public function show(Credencial $credencial)
     {
         Session::put('credencial_id', $credencial->id);
+        Session::put('credencial_nombre', $credencial->empresa->nombre);
         return view('credenciales.show', compact('credencial'));
     }
 

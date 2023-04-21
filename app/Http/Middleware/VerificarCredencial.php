@@ -17,12 +17,10 @@ class VerificarCredencial
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Session::has('credencial_id')) {
-            if (Credencial::where('id', Session::get('credencial_id'))->exists()) {
-                Session::put('credencial_nombre', Credencial::find(Session::get('credencial_id'))->empresa->nombre);
-                return $next($request);
-            }
+        if (Session::has(['credencial_id', 'credencial_nombre'])) {
+            return $next($request);
         }
+        Session::forget(['credencial_id', 'credencial_nombre']);
         return redirect()->route('credenciales.index');
     }
 }
