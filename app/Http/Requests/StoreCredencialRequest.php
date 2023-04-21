@@ -30,7 +30,7 @@ class StoreCredencialRequest extends FormRequest
             'credencial_gestion_final' => ['required', 'integer', 'min:1970', 'max:2050', 'gte:credencial_gestion_inicial'],
             // Empresa
             'empresa_nombre' => ['required', 'string', 'min:1', 'max:255'],
-            'empresa_fecha_afiliacion' => ['required', 'date'],
+            'empresa_fecha_afiliacion' => ['required', 'date', 'before:credencial_inicio_fizcalizacion'],
             'empresa_nit' => ['nullable', 'integer'],
             'empresa_regimen_tributario_id' => ['nullable', 'exists:regimenes_tributarios,id'],
             'empresa_actividad' => ['nullable', 'string', 'min:1', 'max:255'],

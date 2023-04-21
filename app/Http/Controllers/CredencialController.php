@@ -145,7 +145,7 @@ class CredencialController extends Controller
      */
     public function show(Credencial $credencial)
     {
-        return view('dashboard');
+        return view('credenciales.show', compact('credencial'));
     }
 
     /**

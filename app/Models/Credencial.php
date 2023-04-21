@@ -38,4 +38,9 @@ class Credencial extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function getGestionesAttribute()
+    {
+        return $this->planillas()->with('gestion')->get()->pluck('gestion.anio');
+    }
 }
