@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('empleados', function (Blueprint $table) {
             $table->id();
-            $table->string('apellido_paterno');
+            $table->string('apellido_paterno')->nullable();
             $table->string('apellido_materno')->nullable();
             $table->string('nombre');
             $table->unsignedBigInteger('cedula_identidad')->unique();
-            $table->string('complemento_cedula');
+            $table->string('complemento_cedula')->nullable();
             $table->unsignedTinyInteger('ciudad_id')->nullable();
             $table->foreign('ciudad_id')->references('id')->on('ciudades')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

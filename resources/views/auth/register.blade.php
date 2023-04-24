@@ -7,9 +7,9 @@
             <x-splade-input id="password_confirmation" type="password" name="password_confirmation" :label="__('Confirm Password')" required />
 
             <div class="flex items-center justify-end">
-                <Link class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                {{-- <Link class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
-                </Link>
+                </Link> --}}
 
                 <x-splade-submit class="ml-4" :label="__('Register')" />
             </div>

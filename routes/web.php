@@ -31,7 +31,11 @@ Route::middleware('splade')->group(function () {
     Route::spladeUploads();
 
     Route::get('/', function () {
-        return view('auth.login');
+        if (Auth::check()) {
+            return Redirect::to('dashboard');
+        } else {
+            return view('auth.login');
+        }
     });
 
     Route::middleware('auth')->group(function () {
@@ -41,6 +45,7 @@ Route::middleware('splade')->group(function () {
 
         Route::middleware(VerificarCredencial::class)->group(function () {
             Route::get('/movimiento_empleados', [MovimientoEmpleadoController::class, 'index'])->name('movimiento_empleados.index');
+            Route::post('/movimiento_empleados', [MovimientoEmpleadoController::class, 'upload'])->name('movimiento_empleados.upload');
         });
 
         Route::get('/credenciales', [CredencialController::class, 'index'])->name('credenciales.index');

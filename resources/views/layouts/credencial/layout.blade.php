@@ -5,7 +5,7 @@
     <header class="bg-gray-50 shadow">
         <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
             <div>
-                {{ Session::get('credencial_nombre') }}
+                {{ Session::get('empresa_nombre') }}
             </div>
             {{ $header }}
         </div>
