@@ -16,8 +16,21 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <x-splade-table :for="$datos">
                         <x-slot:empty-state>
-                            <p class="text-gray-700 px-6 py-12 font-medium text-sm text-center">Sin registros</p>
+                            <p class="text-gray-700 px-6 py-12 font-medium text-sm text-center">Sin resultados</p>
                         </x-slot>
+                        <x-splade-cell fecha_retiro>
+                            <div class="flex flex-row items-center justify-start">
+                                @if ($item['fecha_retiro'])
+                                    <div class="align-center font-semibold text-sm center text-bold leading-none whitespace-nowrap py-1 px-3.5 rounded-lg select-none bg-red-500 text-white">
+                                        {{ $item['fecha_retiro']->format('d/m/Y') }}
+                                    </div>
+                                @else
+                                    <div class="align-center font-semibold text-sm center text-bold leading-none whitespace-nowrap py-1 px-3.5 rounded-lg select-none bg-teal-500 text-white">
+                                        Vigente
+                                    </div>
+                                @endif
+                            </div>
+                        </x-splade-cell>
                     </x-splade-table>
                 </div>
             </div>

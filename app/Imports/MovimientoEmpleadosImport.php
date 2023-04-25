@@ -27,8 +27,6 @@ class MovimientoEmpleadosImport implements ToCollection, WithStartRow
     {
         foreach ($collection as $row)
         {
-            logger($row);
-
             if ($row[3] != null) {
                 $ciudad = Ciudad::where('nombre', 'like', "%{$row[3]}%")->orWhere('codigo', 'like', "%{$row[3]}%")->first();
             } else {

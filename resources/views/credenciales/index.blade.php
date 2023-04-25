@@ -16,7 +16,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <x-splade-table :for="$datos">
                         <x-slot:empty-state>
-                            <p class="text-gray-700 px-6 py-12 font-medium text-sm text-center">Sin registros</p>
+                            <p class="text-gray-700 px-6 py-12 font-medium text-sm text-center">Sin resultados</p>
                         </x-slot>
                         <x-splade-cell action>
                             <Link href="{{ route('credenciales.show', $item->id) }}" class="inline flex-items">
