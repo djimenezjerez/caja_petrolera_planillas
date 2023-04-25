@@ -41,7 +41,9 @@ class Credencial extends Model
 
     public function getGestionesAttribute()
     {
-        return $this->planillas()->with('gestion')->get()->pluck('gestion.anio');
+        return $this->planillas()->with(['gestion' => function($query) {
+            return $query->orderBy('anio');
+        }])->get()->pluck('gestion');
     }
 
     public function movimientos_empleado()

@@ -1,9 +1,7 @@
 <x-splade-modal max-width="3xl">
-    <div class="flex items-center justify-between">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Detalle de Relación de Ingresos y Salidas
-        </h2>
-    </div>
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        Detalle de Relación de Ingresos y Salidas
+    </h2>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="py-4 bg-white border-b border-gray-400">
             <div class="text-lg text-gray-800 font-sans underline">Datos del Empleado</div>

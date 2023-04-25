@@ -1,8 +1,8 @@
 <x-credencial-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-wrap items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight py-2">
-                Datos de la empresa
+                Detalle de la Credencial
             </h2>
         </div>
     </x-slot>
@@ -28,7 +28,7 @@
                             </tr>
                             <tr>
                                 <th class="text-end pr-3" scope="row">Gestiones:</th>
-                                <td>{{ $credencial->gestiones->implode(', ') }}</td>
+                                <td>{{ $credencial->gestiones->pluck('anio')->implode(', ') }}</td>
                             </tr>
                         </tbody>
                     </table>

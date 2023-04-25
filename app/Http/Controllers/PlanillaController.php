@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Planilla;
+use Illuminate\Support\Facades\Session;
+use App\Http\Requests\UploadExcelRequest;
 use App\Http\Requests\StorePlanillaRequest;
 use App\Http\Requests\UpdatePlanillaRequest;
 
@@ -13,7 +15,8 @@ class PlanillaController extends Controller
      */
     public function index()
     {
-        //
+        $planillas = Planilla::where('credencial_id', Session::get('credencial_id'))->leftJoin('gestiones', 'gestiones.id', '=', 'planillas.gestion_id')->orderBy('gestiones.anio')->get();
+        return view('planillas.index', compact('planillas'));
     }
 
     /**
@@ -37,7 +40,7 @@ class PlanillaController extends Controller
      */
     public function show(Planilla $planilla)
     {
-        //
+        return view('planillas.show', compact('planilla'));
     }
 
     /**
@@ -62,5 +65,10 @@ class PlanillaController extends Controller
     public function destroy(Planilla $planilla)
     {
         //
+    }
+
+    public function upload(Planilla $planilla, UploadExcelRequest $request)
+    {
+        return redirect()->route('planillas.show', $planilla);
     }
 }
