@@ -58,11 +58,6 @@ class Empresa extends Model
         return $this->hasMany(Cargo::class, 'empresa_id');
     }
 
-    public function movimientos_empleado()
-    {
-        return $this->hasMany(MovimientoEmpleado::class, 'empresa_id');
-    }
-
     public function credencial()
     {
         return $this->hasMany(Credencial::class, 'empresa_id');

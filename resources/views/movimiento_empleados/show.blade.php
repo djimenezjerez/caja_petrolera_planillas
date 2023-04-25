@@ -34,7 +34,7 @@
                 <tbody>
                     <tr>
                         <th class="text-end pr-3" scope="row">Nombre:</th>
-                        <td>{{ $movimientoEmpleado->empresa->nombre }}</td>
+                        <td>{{ $movimientoEmpleado->credencial->empresa->nombre }}</td>
                     </tr>
                     <tr>
                         <th class="text-end pr-3" scope="row">Cargo:</th>

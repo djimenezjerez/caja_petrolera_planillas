@@ -121,7 +121,7 @@ class MovimientoEmpleadosImport implements ToCollection, WithStartRow
                 } catch (\Exception $e) {}
 
                 MovimientoEmpleado::updateOrCreate([
-                    'empresa_id' => Session::get('empresa_id'),
+                    'credencial_id' => Session::get('credencial_id'),
                     'empleado_id' => $empleado->id,
                     'cargo_id' => $cargo->id,
                     'fecha_ingreso' => $fecha_ingreso,

@@ -43,4 +43,9 @@ class Credencial extends Model
     {
         return $this->planillas()->with('gestion')->get()->pluck('gestion.anio');
     }
+
+    public function movimientos_empleado()
+    {
+        return $this->hasMany(MovimientoEmpleado::class, 'empresa_id');
+    }
 }

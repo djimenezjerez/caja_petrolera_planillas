@@ -11,7 +11,7 @@ class MovimientoEmpleado extends Model
 
     protected $table = 'movimiento_empleados';
     protected $fillable = [
-        'empresa_id',
+        'credencial_id',
         'empleado_id',
         'cargo_id',
         'fecha_ingreso',
@@ -26,7 +26,7 @@ class MovimientoEmpleado extends Model
         'finiquito_fecha_retiro',
     ];
     protected $casts = [
-        'empresa_id' => 'integer',
+        'credencial_id' => 'integer',
         'empleado_id' => 'integer',
         'cargo_id' => 'integer',
         'fecha_ingreso' => 'date',
@@ -41,9 +41,9 @@ class MovimientoEmpleado extends Model
         'finiquito_fecha_retiro' => 'date',
     ];
 
-    public function empresa()
+    public function credencial()
     {
-        return $this->belongsTo(Empresa::class, 'empresa_id');
+        return $this->belongsTo(Credencial::class, 'credencial_id');
     }
 
     public function empleado()
