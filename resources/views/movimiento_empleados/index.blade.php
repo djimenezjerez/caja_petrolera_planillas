@@ -18,6 +18,16 @@
                         <x-slot:empty-state>
                             <p class="text-gray-700 px-6 py-12 font-medium text-sm text-center">Sin resultados</p>
                         </x-slot>
+                        <x-splade-cell action>
+                            <Link modal href="{{ route('movimiento_empleados.show', $item->id) }}" class="inline flex-items">
+                                <button class="inline-flex items-center justify-center w-7 h-7 mr-2 text-cyan-700 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-cyan-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </button>
+                            </Link>
+                        </x-splade-cell>
                         <x-splade-cell fecha_retiro>
                             <div class="flex flex-row items-center justify-start">
                                 @if ($item['fecha_retiro'])
@@ -37,7 +47,7 @@
         </div>
     </div>
 
-    <x-splade-modal name="excel_modal" max-width="lg">
+    <x-splade-modal name="excel_modal" max-width="3xl">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight pb-4">
             Cargar ingresos/salidas de personal desde Excel
         </h2>
@@ -45,7 +55,7 @@
             <x-splade-file class="col-span-1 mb-4" name="archivo" filepond="{ credits: false }" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" max-size="10MB" />
             <div class="sm:flex">
                 <x-splade-submit class="border rounded-md shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-indigo-500 hover:bg-indigo-700 text-white border-transparent focus:border-indigo-300 focus:ring-indigo-200" :label="__('Upload')" />
-                <button class="rounded-md border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm" type="button" @click="modal.close">Cancel</button>
+                <button class="rounded-md border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm" type="button" @click="modal.close">Cancelar</button>
             </div>
         </x-splade-form>
     </x-splade-modal>

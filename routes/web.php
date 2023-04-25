@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Middleware\VerificarCredencial;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\VerificarCredencial;
 use App\Http\Controllers\CredencialController;
 use App\Http\Controllers\MovimientoEmpleadoController;
 
@@ -46,6 +48,7 @@ Route::middleware('splade')->group(function () {
         Route::middleware(VerificarCredencial::class)->group(function () {
             Route::get('/movimiento_empleados', [MovimientoEmpleadoController::class, 'index'])->name('movimiento_empleados.index');
             Route::post('/movimiento_empleados', [MovimientoEmpleadoController::class, 'upload'])->name('movimiento_empleados.upload');
+            Route::get('/movimiento_empleados/{movimientoEmpleado}', [MovimientoEmpleadoController::class, 'show'])->name('movimiento_empleados.show');
         });
 
         Route::get('/credenciales', [CredencialController::class, 'index'])->name('credenciales.index');

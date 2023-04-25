@@ -51,4 +51,14 @@ class Empleado extends Model
     {
         return $this->hasMany(Empresa::class, 'empleado_id');
     }
+
+    public function getCedulaCompletaAttribute()
+    {
+        return implode(' ', array_filter([$this->cedula_identidad, $this->complemento_cedula, $this->ciudad ? $this->ciudad->codigo : null]));
+    }
+
+    public function getNombreCompletoAttribute()
+    {
+        return implode(' ', array_filter([$this->apellido_paterno, $this->apellido_materno, $this->nombre]));
+    }
 }
