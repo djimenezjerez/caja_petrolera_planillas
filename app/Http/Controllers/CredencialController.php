@@ -132,12 +132,12 @@ class CredencialController extends Controller
                 ]);
             }
             DB::commit();
-            Toast::title('Éxito')->message('Registro almacenado exitósamente')->autoDismiss(15);
+            Toast::title('Éxito')->message('Registro almacenado exitósamente')->autoDismiss(10);
             return redirect()->route('credenciales.index');
         } catch (\Exception $e) {
             DB::rollBack();
             logger($e);
-            Toast::title('Error')->message('Error interno al guardar el registro')->warning()->autoDismiss(15);
+            Toast::title('Error')->message('Error interno al guardar el registro')->warning()->autoDismiss(10);
             return redirect()->back()->withInput();
         }
     }
@@ -260,12 +260,12 @@ class CredencialController extends Controller
                 ]);
             }
             DB::commit();
-            Toast::title('Éxito')->message('Registro modificado exitósamente')->autoDismiss(15);
+            Toast::title('Éxito')->message('Registro modificado exitósamente')->autoDismiss(10);
             return redirect()->route('credenciales.index');
         } catch (\Exception $e) {
             DB::rollBack();
             logger($e);
-            Toast::title('Error')->message('Error interno al guardar el registro')->warning()->autoDismiss(15);
+            Toast::title('Error')->message('Error interno al guardar el registro')->warning()->autoDismiss(10);
             return redirect()->back()->withInput();
         }
     }
@@ -294,24 +294,23 @@ class CredencialController extends Controller
     public function upload(UploadExcelRequest $request)
     {
         try {
-
             $credencial = Excel::toArray(new CredencialImport, $request->archivo);
             if (count($credencial) > 0) {
                 $credencial = $credencial[0];
-                $regimen = RegimenTributario::where('nombre', 'like', '%'.trim($credencial[9][3]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[9][3]).'%')->first();
-                $tipo_empresa = TipoEmpresa::where('nombre', 'like', '%'.trim($credencial[13][2]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[13][2]).'%')->first();
-                $ciudad_empresa = Ciudad::where('nombre', 'like', '%'.trim($credencial[16][2]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[16][2]).'%')->first();
+                $regimen = RegimenTributario::where('nombre', 'like', '%'.trim($credencial[$request->fila+0][$request->columna+1]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[$request->fila+0][$request->columna+1]).'%')->first();
+                $tipo_empresa = TipoEmpresa::where('nombre', 'like', '%'.trim($credencial[$request->fila+4][$request->columna+0]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[$request->fila+4][$request->columna+0]).'%')->first();
+                $ciudad_empresa = Ciudad::where('nombre', 'like', '%'.trim($credencial[$request->fila+7][$request->columna+0]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[$request->fila+7][$request->columna+0]).'%')->first();
                 $inicio_afiliacion = null;
                 try {
-                    $inicio_afiliacion = Date::excelToDateTimeObject($credencial[11][2])->format('d/m/Y');
+                    $inicio_afiliacion = Date::excelToDateTimeObject($credencial[$request->fila+2][$request->columna+0])->format('d/m/Y');
                 } catch (\Exception $e) {}
                 $inicio_fiscalizacion = null;
                 try {
-                    $inicio_fiscalizacion = Date::excelToDateTimeObject($credencial[24][2])->format('d/m/Y');
+                    $inicio_fiscalizacion = Date::excelToDateTimeObject($credencial[$request->fila+15][$request->columna+0])->format('d/m/Y');
                 } catch (\Exception $e) {}
                 $gestiones = [];
                 try {
-                    $gestiones = preg_split('/[-\ ,;_]/', $credencial[25][2]);
+                    $gestiones = preg_split('/[-\ ,;_]/', $credencial[$request->fila+16][$request->columna+0]);
                     $gestiones = array_map('trim', array_filter($gestiones));
                 } catch (\Exception $e) {}
                 if (count($gestiones) > 0) {
@@ -321,33 +320,33 @@ class CredencialController extends Controller
                 $regimenes = RegimenTributario::orderBy('orden')->get();
                 $tipos_empresas = TipoEmpresa::orderBy('orden')->get();
                 $ciudades = Ciudad::orderBy('orden')->get();
-                $carnet = separar_carnet($credencial[20][2]);
+                $carnet = separar_carnet($credencial[$request->fila+11][$request->columna+0]);
                 $credencial = [
-                    'credencial_cite' => $credencial[23][2],
+                    'credencial_cite' => $credencial[$request->fila+14][$request->columna+0],
                     'credencial_inicio_fizcalizacion' => $inicio_fiscalizacion,
                     'credencial_gestion_inicial' => $gestiones->count() ? $gestiones->first() : null,
                     'credencial_gestion_final' => $gestiones->count() ? $gestiones->last() : null,
-                    'empresa_nombre' => $credencial[8][2],
+                    'empresa_nombre' => $credencial[$request->fila-1][$request->columna+0],
                     'empresa_fecha_afiliacion' => $inicio_afiliacion,
-                    'empresa_nit' => $credencial[9][2],
+                    'empresa_nit' => $credencial[$request->fila+0][$request->columna+0],
                     'empresa_regimen_tributario_id' => $regimen != null ? $regimen->id : null,
-                    'empresa_actividad' => $credencial[12][2],
-                    'empresa_numero_empleador' => $credencial[10][2],
+                    'empresa_actividad' => $credencial[$request->fila+3][$request->columna+0],
+                    'empresa_numero_empleador' => $credencial[$request->fila+1][$request->columna+0],
                     'empresa_tipo_empresa_id' => $tipo_empresa != null ? $tipo_empresa->id : null,
-                    'empresa_fundempresa' => $credencial[14][2],
-                    'empresa_roe' => $credencial[15][2],
-                    'empresa_telefonos' => $credencial[17][2],
+                    'empresa_fundempresa' => $credencial[$request->fila+5][$request->columna+0],
+                    'empresa_roe' => $credencial[$request->fila+6][$request->columna+0],
+                    'empresa_telefonos' => $credencial[$request->fila+8][$request->columna+0],
                     'empresa_ciudad_id' => $ciudad_empresa != null ? $ciudad_empresa->id : null,
-                    'empresa_domicilio' => $credencial[18][2],
-                    'empresa_domicilio_representante' => $credencial[21][2],
-                    'representante_apellido_paterno' => $credencial[19][2],
-                    'representante_apellido_materno' => $credencial[19][3],
-                    'representante_nombre' => $credencial[19][4],
+                    'empresa_domicilio' => $credencial[$request->fila+9][$request->columna+0],
+                    'empresa_domicilio_representante' => $credencial[$request->fila+12][$request->columna+0],
+                    'representante_apellido_paterno' => $credencial[$request->fila+10][$request->columna+0],
+                    'representante_apellido_materno' => $credencial[$request->fila+10][$request->columna+1],
+                    'representante_nombre' => $credencial[$request->fila+10][$request->columna+2],
                     'representante_cedula_identidad' => $carnet[0],
                     'representante_complemento_cedula' => $carnet[1],
                     'representante_ciudad_id' => $carnet[2] ? $carnet[2]->id : null,
                 ];
-                Toast::title('Éxito')->message('Plantilla Excel cargada')->autoDismiss(15);
+                Toast::title('Éxito')->message('Plantilla Excel cargada')->autoDismiss(10);
             } else {
                 $credencial = [
                     'credencial_cite' => null,
@@ -374,11 +373,11 @@ class CredencialController extends Controller
                     'representante_complemento_cedula' => null,
                     'representante_ciudad_id' => null,
                 ];
-                Toast::title('Error')->message('Plantilla Excel incompatible')->autoDismiss(15)->warning();
+                Toast::title('Error')->message('Plantilla Excel incompatible')->autoDismiss(10)->warning();
             }
             return view('credenciales.create', compact('credencial', 'regimenes', 'tipos_empresas', 'ciudades'));
         } catch (\Exception $e) {
-            Toast::title('Error')->message('Plantilla Excel incompatible')->autoDismiss(15)->warning();
+            Toast::title('Error')->message('Plantilla Excel incompatible')->autoDismiss(10)->warning();
             return redirect()->route('credenciales.create');
         }
     }

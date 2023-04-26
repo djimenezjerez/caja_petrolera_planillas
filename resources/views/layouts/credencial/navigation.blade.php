@@ -70,7 +70,7 @@
                 <x-responsive-nav-link :href="route('credenciales.show', Session::get('credencial_id'))" :active="request()->routeIs('credenciales.show')">
                     Credencial
                 </x-responsive-nav-link>
-                <x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('planillas.index')" :active="request()->routeIs('planillas.index')">
                     Planillas de Sueldos
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('movimiento_empleados.index')" :active="request()->routeIs('movimiento_empleados.index')">

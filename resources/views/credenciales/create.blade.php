@@ -18,5 +18,5 @@
         </div>
     </div>
 
-    <x-modal-excel nombre="excel_modal" titulo="Cargar desde plantilla Excel" :ruta="route('credenciales.upload')" />
+    <x-modal-excel nombre="excel_modal" titulo="Cargar desde plantilla Excel" :ruta="route('credenciales.upload')" :fila="9" columna="C" />
 </x-app-layout>

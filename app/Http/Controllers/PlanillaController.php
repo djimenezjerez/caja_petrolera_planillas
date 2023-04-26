@@ -73,12 +73,12 @@ class PlanillaController extends Controller
     public function upload(Planilla $planilla, UploadExcelRequest $request)
     {
         try {
-            Excel::import(new PlanillasImport($planilla, Session::get('credencial_id'), Session::get('empresa_id')), $request->archivo);
+            Excel::import(new PlanillasImport($request->fila, $request->columna, $planilla, Session::get('credencial_id'), Session::get('empresa_id')), $request->archivo);
         } catch(\Exception $e) {
             logger($e);
-            Toast::title('Error')->message('Plantilla Excel incompatible')->autoDismiss(15)->warning();
+            Toast::title('Error')->message('Plantilla Excel incompatible')->autoDismiss(10)->warning();
         }
-        Toast::title('Éxito')->message('Plantilla Excel cargada')->autoDismiss(15);
+        Toast::title('Éxito')->message('Plantilla Excel cargada')->autoDismiss(10);
         return redirect()->route('planillas.show', $planilla);
     }
 }

@@ -41,7 +41,7 @@
                                     </div>
                                     @else
                                     <div class="align-center font-semibold text-sm center text-bold leading-none whitespace-nowrap py-1 px-3.5 rounded-lg select-none bg-red-500 text-white uppercase">
-                                        Sin parte
+                                        Sin parte CPS
                                     </div>
                                     @endif
                                 @endif
@@ -53,5 +53,5 @@
         </div>
     </div>
 
-    <x-modal-excel nombre="excel_modal" titulo="Cargar ingresos/salidas de personal desde Excel" :ruta="route('movimiento_empleados.upload')" />
+    <x-modal-excel nombre="excel_modal" titulo="Cargar ingresos/salidas de personal desde Excel" :ruta="route('movimiento_empleados.upload')" fila="3" columna="A" />
 </x-credencial-layout>
