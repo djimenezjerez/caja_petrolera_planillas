@@ -31,13 +31,19 @@
                         <x-splade-cell fecha_retiro>
                             <div class="flex flex-row items-center justify-start">
                                 @if ($item['fecha_retiro'])
-                                    <div class="align-center font-semibold text-sm center text-bold leading-none whitespace-nowrap py-1 px-3.5 rounded-lg select-none bg-red-500 text-white">
+                                    <div class="align-center font-semibold text-sm center text-bold leading-none whitespace-nowrap py-1 px-3.5 rounded-lg select-none bg-orange-500 text-white">
                                         {{ $item['fecha_retiro']->format('d/m/Y') }}
                                     </div>
                                 @else
-                                    <div class="align-center font-semibold text-sm center text-bold leading-none whitespace-nowrap py-1 px-3.5 rounded-lg select-none bg-teal-500 text-white">
+                                    @if ($item['parte_cps_fecha_ingreso'])
+                                    <div class="align-center font-semibold text-sm center text-bold leading-none whitespace-nowrap py-1 px-3.5 rounded-lg select-none bg-teal-500 text-white uppercase">
                                         Vigente
                                     </div>
+                                    @else
+                                    <div class="align-center font-semibold text-sm center text-bold leading-none whitespace-nowrap py-1 px-3.5 rounded-lg select-none bg-red-500 text-white uppercase">
+                                        Sin parte
+                                    </div>
+                                    @endif
                                 @endif
                             </div>
                         </x-splade-cell>

@@ -3,18 +3,24 @@
 namespace App\Imports;
 
 use App\Models\Cargo;
-use App\Models\Ciudad;
 use App\Models\Empleado;
 use App\Models\MovimientoEmpleado;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
 class MovimientoEmpleadosImport implements ToCollection, WithStartRow
 {
+    private $empresa_id, $credencial_id;
+
+    public function __construct(int $empresa_id, int $credencial_id)
+    {
+        $this->empresa_id = $empresa_id;
+        $this->credencial_id = $credencial_id;
+    }
+
     public function startRow(): int
     {
         return 3;
@@ -27,101 +33,96 @@ class MovimientoEmpleadosImport implements ToCollection, WithStartRow
     {
         foreach ($collection as $row)
         {
-            if ($row[3] != null) {
-                $ciudad = Ciudad::where('nombre', 'like', "%{$row[3]}%")->orWhere('codigo', 'like', "%{$row[3]}%")->first();
-            } else {
-                $ciudad = null;
-            }
-
             DB::beginTransaction();
             try {
                 $cargo = Cargo::firstOrCreate([
-                    'nombre' => mb_strtoupper(trim($row[7])),
-                    'empresa_id' => Session::get('empresa_id'),
+                    'nombre' => mb_strtoupper(trim($row[5])),
+                    'empresa_id' => $this->empresa_id,
                 ]);
+                $carnet = separar_carnet($row[1]);
                 $empleado = Empleado::updateOrCreate([
-                    'cedula_identidad' => $row[1],
+                    'cedula_identidad' => $carnet[0],
                 ], [
-                    'complemento_cedula' => $row[2],
-                    'ciudad_id' => $ciudad ? $ciudad->id : null,
-                    'apellido_paterno' => $row[4],
-                    'apellido_materno' => $row[5],
-                    'nombre' => $row[6],
+                    'complemento_cedula' => $carnet[1],
+                    'ciudad_id' => $carnet[2] ? $carnet[2]->id : null,
+                    'apellido_paterno' => trim($row[2]),
+                    'apellido_materno' => trim($row[3]),
+                    'nombre' => trim($row[4]),
                 ]);
 
                 $fecha_ingreso = null;
                 try {
-                    $dato = intval($row[8]);
+                    $dato = intval(trim($row[6]));
                     if ($dato > 0) {
                         $fecha_ingreso = Date::excelToDateTimeObject($dato);
                     }
                 } catch (\Exception $e) {}
                 $fecha_retiro = null;
                 try {
-                    $dato = intval($row[11]);
+                    $dato = intval(trim($row[9]));
                     if ($dato > 0) {
                         $fecha_retiro = Date::excelToDateTimeObject($dato);
                     }
                 } catch (\Exception $e) {}
                 $parte_cps_fecha_ingreso = null;
                 try {
-                    $dato = intval($row[9]);
+                    $dato = intval(trim($row[7]));
                     if ($dato > 0) {
                         $parte_cps_fecha_ingreso = Date::excelToDateTimeObject($dato);
                     }
                 } catch (\Exception $e) {}
                 $parte_cps_fecha_retiro = null;
                 try {
-                    $dato = intval($row[12]);
+                    $dato = intval(trim($row[10]));
                     if ($dato > 0) {
                         $parte_cps_fecha_retiro = Date::excelToDateTimeObject($dato);
                     }
                 } catch (\Exception $e) {}
                 $presentacion_cps_fecha_ingreso = null;
                 try {
-                    $dato = intval($row[10]);
+                    $dato = intval(trim($row[8]));
                     if ($dato > 0) {
                         $presentacion_cps_fecha_ingreso = Date::excelToDateTimeObject($dato);
                     }
                 } catch (\Exception $e) {}
                 $presentacion_cps_fecha_retiro = null;
                 try {
-                    $dato = intval($row[13]);
+                    $dato = intval(trim($row[11]));
                     if ($dato > 0) {
                         $presentacion_cps_fecha_retiro = Date::excelToDateTimeObject($dato);
                     }
                 } catch (\Exception $e) {}
                 $contrato_fecha_ingreso = null;
                 try {
-                    $dato = intval($row[14]);
+                    $dato = intval(trim($row[12]));
                     if ($dato > 0) {
                         $contrato_fecha_ingreso = Date::excelToDateTimeObject($dato);
                     }
                 } catch (\Exception $e) {}
                 $contrato_fecha_retiro = null;
                 try {
-                    $dato = intval($row[15]);
+                    $dato = intval(trim($row[13]));
                     if ($dato > 0) {
                         $contrato_fecha_retiro = Date::excelToDateTimeObject($dato);
                     }
                 } catch (\Exception $e) {}
                 $finiquito_fecha_ingreso = null;
                 try {
-                    $dato = intval($row[16]);
+                    $dato = intval(trim($row[14]));
                     if ($dato > 0) {
                         $finiquito_fecha_ingreso = Date::excelToDateTimeObject($dato);
                     }
                 } catch (\Exception $e) {}
                 $finiquito_fecha_retiro = null;
                 try {
-                    $dato = intval($row[17]);
+                    $dato = intval(trim($row[15]));
                     if ($dato > 0) {
                         $finiquito_fecha_retiro = Date::excelToDateTimeObject($dato);
                     }
                 } catch (\Exception $e) {}
 
                 MovimientoEmpleado::updateOrCreate([
-                    'credencial_id' => Session::get('credencial_id'),
+                    'credencial_id' => $this->credencial_id,
                     'empleado_id' => $empleado->id,
                     'cargo_id' => $cargo->id,
                     'fecha_ingreso' => $fecha_ingreso,

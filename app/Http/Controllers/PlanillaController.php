@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Planilla;
+use App\Imports\PlanillasImport;
+use Maatwebsite\Excel\Facades\Excel;
+use ProtoneMedia\Splade\Facades\Toast;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\UploadExcelRequest;
 use App\Http\Requests\StorePlanillaRequest;
@@ -69,6 +72,13 @@ class PlanillaController extends Controller
 
     public function upload(Planilla $planilla, UploadExcelRequest $request)
     {
+        try {
+            Excel::import(new PlanillasImport($planilla, Session::get('credencial_id'), Session::get('empresa_id')), $request->archivo);
+        } catch(\Exception $e) {
+            logger($e);
+            Toast::title('Error')->message('Plantilla Excel incompatible')->autoDismiss(15)->warning();
+        }
+        Toast::title('Éxito')->message('Plantilla Excel cargada')->autoDismiss(15);
         return redirect()->route('planillas.show', $planilla);
     }
 }

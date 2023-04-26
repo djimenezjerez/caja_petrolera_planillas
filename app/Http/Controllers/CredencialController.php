@@ -301,7 +301,6 @@ class CredencialController extends Controller
                 $regimen = RegimenTributario::where('nombre', 'like', '%'.trim($credencial[9][3]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[9][3]).'%')->first();
                 $tipo_empresa = TipoEmpresa::where('nombre', 'like', '%'.trim($credencial[13][2]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[13][2]).'%')->first();
                 $ciudad_empresa = Ciudad::where('nombre', 'like', '%'.trim($credencial[16][2]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[16][2]).'%')->first();
-                $ciudad_representante = Ciudad::where('nombre', 'like', '%'.trim($credencial[20][4]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[20][4]).'%')->first();
                 $inicio_afiliacion = null;
                 try {
                     $inicio_afiliacion = Date::excelToDateTimeObject($credencial[11][2])->format('d/m/Y');
@@ -312,7 +311,8 @@ class CredencialController extends Controller
                 } catch (\Exception $e) {}
                 $gestiones = [];
                 try {
-                    $gestiones = array_map('trim', explode(',', $credencial[25][2]));
+                    $gestiones = preg_split('/[-\ ,;_]/', $credencial[25][2]);
+                    $gestiones = array_map('trim', array_filter($gestiones));
                 } catch (\Exception $e) {}
                 if (count($gestiones) > 0) {
                     $gestiones = collect($gestiones)->sort();
@@ -321,6 +321,7 @@ class CredencialController extends Controller
                 $regimenes = RegimenTributario::orderBy('orden')->get();
                 $tipos_empresas = TipoEmpresa::orderBy('orden')->get();
                 $ciudades = Ciudad::orderBy('orden')->get();
+                $carnet = separar_carnet($credencial[20][2]);
                 $credencial = [
                     'credencial_cite' => $credencial[23][2],
                     'credencial_inicio_fizcalizacion' => $inicio_fiscalizacion,
@@ -342,10 +343,11 @@ class CredencialController extends Controller
                     'representante_apellido_paterno' => $credencial[19][2],
                     'representante_apellido_materno' => $credencial[19][3],
                     'representante_nombre' => $credencial[19][4],
-                    'representante_cedula_identidad' => $credencial[20][2],
-                    'representante_complemento_cedula' => $credencial[20][3],
-                    'representante_ciudad_id' => $ciudad_representante != null ? $ciudad_representante->id : null,
+                    'representante_cedula_identidad' => $carnet[0],
+                    'representante_complemento_cedula' => $carnet[1],
+                    'representante_ciudad_id' => $carnet[2] ? $carnet[2]->id : null,
                 ];
+                Toast::title('Éxito')->message('Plantilla Excel cargada')->autoDismiss(15);
             } else {
                 $credencial = [
                     'credencial_cite' => null,
@@ -372,6 +374,7 @@ class CredencialController extends Controller
                     'representante_complemento_cedula' => null,
                     'representante_ciudad_id' => null,
                 ];
+                Toast::title('Error')->message('Plantilla Excel incompatible')->autoDismiss(15)->warning();
             }
             return view('credenciales.create', compact('credencial', 'regimenes', 'tipos_empresas', 'ciudades'));
         } catch (\Exception $e) {

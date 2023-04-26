@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('movimiento_empleados', function($table) {
-            $table->date('parte_cps_fecha_ingreso');
+            $table->date('parte_cps_fecha_ingreso')->nullable();
             $table->date('parte_cps_fecha_retiro')->nullable();
             $table->date('presentacion_cps_fecha_ingreso')->nullable();
             $table->date('presentacion_cps_fecha_retiro')->nullable();
