@@ -22,7 +22,6 @@ return new class extends Migration
             $table->float('aguinaldo', 12, 2)->default(0);
             $table->float('ministerio_trabajo', 12, 2)->default(0);
             $table->float('diferencias', 12, 2)->default(0);
-            $table->float('total', 12, 2)->default(0);
             $table->boolean('calculado')->default(false);
             $table->morphs('planillable');
             $table->timestamps();

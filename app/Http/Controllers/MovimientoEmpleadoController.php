@@ -98,7 +98,7 @@ class MovimientoEmpleadoController extends Controller
     public function upload(UploadExcelRequest $request)
     {
         try {
-            Excel::import(new MovimientoEmpleadosImport($request->fila, $request->columna, Session::get('empresa_id'), Session::get('credencial_id')), $request->archivo);
+            Excel::import(new MovimientoEmpleadosImport($request->fila, Session::get('empresa_id'), Session::get('credencial_id')), $request->archivo);
         } catch(\Exception $e) {
             logger($e);
             Toast::title('Error')->message('Plantilla Excel incompatible')->autoDismiss(10)->warning();

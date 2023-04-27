@@ -5,9 +5,8 @@
     <x-splade-form :action="$ruta" :default="$seleccion">
         <div class="bg-white">
             <div class="grid grid-cols-6 gap-4">
-                <x-splade-input class="col-span-6 md:col-span-3 font-semibold" name="fila" type="number" label=" Fila" required />
-                <x-splade-select class="col-span-6 md:col-span-3 font-semibold" name="columna" :options="$columnas" label="Columna" choices="{ searchEnabled: true }" required />
-                <x-splade-file class="col-span-6 font-semibold" name="archivo" label="Hoja de cálculo Excel" filepond="{ credits: false }" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" max-size="10MB" />
+                <x-splade-input class="col-span-6 sm:col-span-2 md:col-span-1 font-semibold" name="fila" type="number" label="Fila Inicial" required />
+                <x-splade-file class="col-span-6 sm:col-span-4 md:col-span-5 font-semibold" name="archivo" label="Hoja de cálculo Excel" filepond="{ credits: false }" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" max-size="10MB" />
             </div>
         </div>
         <div class="pt-6 bg-white">

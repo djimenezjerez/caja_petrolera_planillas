@@ -19,5 +19,5 @@
         </div>
     </div>
 
-    <x-modal-excel nombre="excel_modal" titulo="Cargar planilla desde Excel" :ruta="route('planillas.upload', $planilla->id)" fila="9" columna="A" />
+    <x-modal-excel nombre="excel_modal" titulo="Cargar planilla desde Excel" :ruta="route('planillas.upload', $planilla->id)" fila="9" />
 </x-credencial-layout>

@@ -53,5 +53,5 @@
         </div>
     </div>
 
-    <x-modal-excel nombre="excel_modal" titulo="Cargar ingresos/salidas de personal desde Excel" :ruta="route('movimiento_empleados.upload')" fila="3" columna="A" />
+    <x-modal-excel nombre="excel_modal" titulo="Cargar ingresos/salidas de personal desde Excel" :ruta="route('movimiento_empleados.upload')" fila="3" />
 </x-credencial-layout>

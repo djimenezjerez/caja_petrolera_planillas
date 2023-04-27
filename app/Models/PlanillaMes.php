@@ -10,8 +10,18 @@ class PlanillaMes extends Model
     use HasFactory;
 
     protected $table = 'planilla_mes';
+    protected $fillable = [
+        'planilla_id',
+        'mes_id',
+        'orden',
+    ];
+    protected $casts = [
+        'planilla_id' => 'integer',
+        'mes_id' => 'integer',
+        'orden' => 'integer',
+    ];
 
-    public function importe()
+    public function importes()
     {
         return $this->morphOne(ImportePlanilla::class, 'planillable');
     }

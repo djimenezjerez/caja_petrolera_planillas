@@ -10,11 +10,20 @@ class PlanillaEmpleado extends Model
     use HasFactory;
 
     protected $table = 'planilla_empleados';
-
-    public function importe()
-    {
-        return $this->morphOne(ImportePlanilla::class, 'planillable');
-    }
+    protected $fillable = [
+        'planilla_id',
+        'empleado_id',
+        'cargo_id',
+        'orden',
+        'total',
+    ];
+    protected $casts = [
+        'planilla_id' => 'integer',
+        'empleado_id' => 'integer',
+        'cargo_id' => 'integer',
+        'orden' => 'integer',
+        'total' => 'float',
+    ];
 
     public function planilla()
     {

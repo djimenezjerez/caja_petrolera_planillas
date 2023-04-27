@@ -22,16 +22,8 @@ class UploadExcelRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fila' => 'required|integer|min:1|max:65535',
-            'columna' => 'required|integer|min:0|max:255',
+            'fila' => 'required|integer|min:3|max:65535',
             'archivo' => 'required|file|mimes:xls,xlsx',
         ];
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge([
-            'columna' => columna_excel($this->columna),
-        ]);
     }
 }

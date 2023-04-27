@@ -15,43 +15,43 @@ class MesSeeder extends Seeder
     {
         $datos = [
             [
-                'nombre' => 'enero',
+                'nombre' => 'ENERO',
                 'orden' => 1,
             ], [
-                'nombre' => 'febrero',
+                'nombre' => 'FEBRERO',
                 'orden' => 2,
             ], [
-                'nombre' => 'marzo',
+                'nombre' => 'MARZO',
                 'orden' => 3,
             ], [
-                'nombre' => 'abril',
+                'nombre' => 'ABRIL',
                 'orden' => 4,
             ], [
-                'nombre' => 'mayo',
+                'nombre' => 'MAYO',
                 'orden' => 5,
             ], [
-                'nombre' => 'junio',
+                'nombre' => 'JUNIO',
                 'orden' => 6,
             ], [
-                'nombre' => 'julio',
+                'nombre' => 'JULIO',
                 'orden' => 7,
             ], [
-                'nombre' => 'agosto',
+                'nombre' => 'AGOSTO',
                 'orden' => 8,
             ], [
-                'nombre' => 'septiembre',
+                'nombre' => 'SEPTIEMBRE',
                 'orden' => 9,
             ], [
-                'nombre' => 'octubre',
+                'nombre' => 'OCTUBRE',
                 'orden' => 10,
             ], [
-                'nombre' => 'noviembre',
+                'nombre' => 'NOVIEMBRE',
                 'orden' => 11,
             ], [
-                'nombre' => 'diciembre',
+                'nombre' => 'DICIEMBRE',
                 'orden' => 12,
             ], [
-                'nombre' => 'reintegro',
+                'nombre' => 'REINTEGRO',
                 'orden' => 13,
             ],
         ];

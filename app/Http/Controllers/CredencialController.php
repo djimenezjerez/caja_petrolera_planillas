@@ -297,20 +297,20 @@ class CredencialController extends Controller
             $credencial = Excel::toArray(new CredencialImport, $request->archivo);
             if (count($credencial) > 0) {
                 $credencial = $credencial[0];
-                $regimen = RegimenTributario::where('nombre', 'like', '%'.trim($credencial[$request->fila+0][$request->columna+1]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[$request->fila+0][$request->columna+1]).'%')->first();
-                $tipo_empresa = TipoEmpresa::where('nombre', 'like', '%'.trim($credencial[$request->fila+4][$request->columna+0]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[$request->fila+4][$request->columna+0]).'%')->first();
-                $ciudad_empresa = Ciudad::where('nombre', 'like', '%'.trim($credencial[$request->fila+7][$request->columna+0]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[$request->fila+7][$request->columna+0]).'%')->first();
+                $regimen = RegimenTributario::where('nombre', 'like', '%'.trim($credencial[$request->fila+0][3]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[$request->fila+0][3]).'%')->first();
+                $tipo_empresa = TipoEmpresa::where('nombre', 'like', '%'.trim($credencial[$request->fila+4][2]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[$request->fila+4][2]).'%')->first();
+                $ciudad_empresa = Ciudad::where('nombre', 'like', '%'.trim($credencial[$request->fila+7][2]).'%')->orWhere('codigo', 'like', '%'.trim($credencial[$request->fila+7][2]).'%')->first();
                 $inicio_afiliacion = null;
                 try {
-                    $inicio_afiliacion = Date::excelToDateTimeObject($credencial[$request->fila+2][$request->columna+0])->format('d/m/Y');
+                    $inicio_afiliacion = Date::excelToDateTimeObject($credencial[$request->fila+2][2])->format('d/m/Y');
                 } catch (\Exception $e) {}
                 $inicio_fiscalizacion = null;
                 try {
-                    $inicio_fiscalizacion = Date::excelToDateTimeObject($credencial[$request->fila+15][$request->columna+0])->format('d/m/Y');
+                    $inicio_fiscalizacion = Date::excelToDateTimeObject($credencial[$request->fila+15][2])->format('d/m/Y');
                 } catch (\Exception $e) {}
                 $gestiones = [];
                 try {
-                    $gestiones = preg_split('/[-\ ,;_]/', $credencial[$request->fila+16][$request->columna+0]);
+                    $gestiones = preg_split('/[-\ ,;_]/', $credencial[$request->fila+16][2]);
                     $gestiones = array_map('trim', array_filter($gestiones));
                 } catch (\Exception $e) {}
                 if (count($gestiones) > 0) {
@@ -320,28 +320,28 @@ class CredencialController extends Controller
                 $regimenes = RegimenTributario::orderBy('orden')->get();
                 $tipos_empresas = TipoEmpresa::orderBy('orden')->get();
                 $ciudades = Ciudad::orderBy('orden')->get();
-                $carnet = separar_carnet($credencial[$request->fila+11][$request->columna+0]);
+                $carnet = separar_carnet($credencial[$request->fila+11][2]);
                 $credencial = [
-                    'credencial_cite' => $credencial[$request->fila+14][$request->columna+0],
+                    'credencial_cite' => $credencial[$request->fila+14][2],
                     'credencial_inicio_fizcalizacion' => $inicio_fiscalizacion,
                     'credencial_gestion_inicial' => $gestiones->count() ? $gestiones->first() : null,
                     'credencial_gestion_final' => $gestiones->count() ? $gestiones->last() : null,
-                    'empresa_nombre' => $credencial[$request->fila-1][$request->columna+0],
+                    'empresa_nombre' => $credencial[$request->fila-1][2],
                     'empresa_fecha_afiliacion' => $inicio_afiliacion,
-                    'empresa_nit' => $credencial[$request->fila+0][$request->columna+0],
+                    'empresa_nit' => $credencial[$request->fila+0][2],
                     'empresa_regimen_tributario_id' => $regimen != null ? $regimen->id : null,
-                    'empresa_actividad' => $credencial[$request->fila+3][$request->columna+0],
-                    'empresa_numero_empleador' => $credencial[$request->fila+1][$request->columna+0],
+                    'empresa_actividad' => $credencial[$request->fila+3][2],
+                    'empresa_numero_empleador' => $credencial[$request->fila+1][2],
                     'empresa_tipo_empresa_id' => $tipo_empresa != null ? $tipo_empresa->id : null,
-                    'empresa_fundempresa' => $credencial[$request->fila+5][$request->columna+0],
-                    'empresa_roe' => $credencial[$request->fila+6][$request->columna+0],
-                    'empresa_telefonos' => $credencial[$request->fila+8][$request->columna+0],
+                    'empresa_fundempresa' => $credencial[$request->fila+5][2],
+                    'empresa_roe' => $credencial[$request->fila+6][2],
+                    'empresa_telefonos' => $credencial[$request->fila+8][2],
                     'empresa_ciudad_id' => $ciudad_empresa != null ? $ciudad_empresa->id : null,
-                    'empresa_domicilio' => $credencial[$request->fila+9][$request->columna+0],
-                    'empresa_domicilio_representante' => $credencial[$request->fila+12][$request->columna+0],
-                    'representante_apellido_paterno' => $credencial[$request->fila+10][$request->columna+0],
-                    'representante_apellido_materno' => $credencial[$request->fila+10][$request->columna+1],
-                    'representante_nombre' => $credencial[$request->fila+10][$request->columna+2],
+                    'empresa_domicilio' => $credencial[$request->fila+9][2],
+                    'empresa_domicilio_representante' => $credencial[$request->fila+12][2],
+                    'representante_apellido_paterno' => $credencial[$request->fila+10][2],
+                    'representante_apellido_materno' => $credencial[$request->fila+10][3],
+                    'representante_nombre' => $credencial[$request->fila+10][4],
                     'representante_cedula_identidad' => $carnet[0],
                     'representante_complemento_cedula' => $carnet[1],
                     'representante_ciudad_id' => $carnet[2] ? $carnet[2]->id : null,

@@ -19,6 +19,11 @@ class Planilla extends Model
         'credencial_id' => 'integer',
     ];
 
+    public function importes()
+    {
+        return $this->morphOne(ImportePlanilla::class, 'planillable');
+    }
+
     public function gestion()
     {
         return $this->belongsTo(Gestion::class, 'gestion_id');
