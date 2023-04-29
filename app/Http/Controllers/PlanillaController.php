@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Planilla;
+use App\Models\PlanillaSueldo;
 use App\Imports\PlanillasImport;
 use Maatwebsite\Excel\Facades\Excel;
+use ProtoneMedia\Splade\SpladeTable;
+use Spatie\QueryBuilder\QueryBuilder;
 use ProtoneMedia\Splade\Facades\Toast;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\UploadExcelRequest;
@@ -43,7 +46,12 @@ class PlanillaController extends Controller
      */
     public function show(Planilla $planilla)
     {
-        return view('planillas.show', compact('planilla'));
+        $datos = QueryBuilder::for(PlanillaSueldo::class)->with('planilla_mes.mes');
+
+        return view('planillas.show', [
+            'planilla' => $planilla,
+            'datos' => SpladeTable::for($datos)->column('id')->column('planilla_mes.mes.nombre')->column('sueldo')->paginate(8)->perPageOptions([8, 15, 30]),
+        ]);
     }
 
     /**

@@ -23,7 +23,7 @@ class PlanillaSueldo extends Model
         'sueldo' => 'float',
     ];
 
-    public function mes()
+    public function planilla_mes()
     {
         return $this->belongsTo(PlanillaMes::class, 'planilla_mes_id');
     }
